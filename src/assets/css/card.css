@@ -1,0 +1,28 @@
+.card-product {
+    padding: 20px 40px;
+    width: 340px;
+    height: max-content;
+    margin-right: 80px;
+    margin-bottom: 80px;
+    border: 1px solid #E5E5E5;
+    box-sizing: border-box;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.card-product h3 {
+    margin-top: 20px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 36px;
+    color: #0A1329;
+}
+
+.card-product h4 {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 36px;
+    color: #0A1329;
+}

@@ -1,0 +1,65 @@
+.overlay-left {
+    width: 720px;
+    height: 710px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 100%,
+            rgba(43, 21, 107, 0.8)), url("../img/ultra_light.png") no-repeat;
+}
+
+.overlay-right {
+    width: 720px;
+    height: 710px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 100%,
+            rgba(43, 21, 107, 0.8)), url("../img/best_resolution.png") no-repeat;
+}
+
+.image-content h1 {
+    padding-top: 150px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 57px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.image-content p {
+    padding: 2em;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 50px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.image-content span {
+    font-weight: 500;
+    color: #FFFFFF;
+}
+
+/* product list */
+.content-product {
+    padding-top: 60px;
+    margin-bottom: 100px;
+    height: max-content;
+    background: #FFFFFF;
+}
+
+.content-product h1 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 57px;
+    text-align: center;
+    color: #0A1329;
+}
+
+.content-product p {
+    padding-top: 10px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 34px;
+    text-align: center;
+    color: rgba(10, 19, 41, 0.55);
+}

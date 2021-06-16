@@ -1,0 +1,6 @@
+.product {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    height: max-content;
+    background: linear-gradient(180deg, #F3F5FC, #fff)
+}

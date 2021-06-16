@@ -1,0 +1,178 @@
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.scroll-to-top {
+  padding: 5px;
+  position: fixed;
+  bottom: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background: #315BC7;
+  color: #fff;
+  left: 50%;
+  z-index: 999;
+}
+
+.scroll-to-top .icon {
+  font-size: 24px;
+  animation: scrolltop 0.5s alternate ease infinite;
+}
+
+@keyframes scrolltop {
+  from {
+    transform: translateY(2px);
+  }
+
+  to {
+    transform: translateY(-1px);
+  }
+}
+
+
+.rounded-sm {
+  border-radius: 0.8rem;
+}
+
+.rounded-md {
+  border-radius: 1rem;
+}
+
+.rounded-lg {
+  border-radius: 1.2rem;
+}
+
+.rounded-xl {
+  border-radius: 2rem;
+}
+
+.show {
+  display: block !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+
+.navbarMobile {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  width: 350px;
+  height: 100vh;
+  padding: 2rem;
+  background: white;
+  transition: all ease-in-out 0.3s;
+  position: fixed;
+  top: 0;
+  z-index: 99999;
+}
+
+.navbarMobile-show {
+  right: 0;
+}
+
+.navbarMobile-hide {
+  right: -100%;
+}
+
+@media (max-width: 576px) {
+  .show-sm {
+    display: block !important;
+  }
+
+  .hide-sm {
+    display: none;
+  }
+
+  .authLayout {
+    /* min-height: 100vh; */
+  }
+
+  .h-100vh-sm {
+    height: 100vh;
+  }
+
+  .w-100-sm {
+    width: 100%;
+  }
+
+}
+
+
+@media (min-width: 576px) {
+  .show-sm {
+    display: block !important;
+  }
+
+  .hide-sm {
+    display: none;
+  }
+
+  .h-100vh-sm {
+    height: 100vh;
+  }
+
+  .w-100-sm {
+    width: 100%;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .show-md {
+    display: block !important;
+  }
+
+  .hide-md {
+    display: none;
+  }
+
+  .rounded-xl-md {
+    border-radius: 2rem;
+  }
+
+  .h-100vh-sm {
+    height: auto;
+  }
+}
+
+@media (min-width: 992px) {
+  .show-lg {
+    display: block !important;
+  }
+
+  .hide-lg {
+    display: none;
+  }
+
+  .rounded-xl-lg {
+    border-radius: 2rem;
+  }
+
+  .w-40-lg {
+    width: 40%;
+  }
+
+  .w-50-lg {
+    width: 50%;
+  }
+
+  .w-60-lg {
+    width: 60%;
+  }
+}
+
+.text-table-responsive {
+  max-width: 200px;
+}
+
+@media (min-width: 1200px) {
+  .show-xl {
+    display: block !important;
+  }
+
+  .hide-xl {
+    display: none;
+  }
+}
