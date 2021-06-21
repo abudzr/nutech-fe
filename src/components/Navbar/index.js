@@ -1,16 +1,29 @@
 import { React, useState } from "react";
 import "../../assets/css/navbar.css"
 import logo from "../../assets/img/Logo.png"
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 
 function Navbar() {
+    const dispatch = useDispatch()
+    const history = useHistory()
     const [state, setState] = useState({
         navbarMobileToggle: false,
         dropdownToggle: false,
         openWindowNavbar: false,
     });
 
+    const handleSearch = (event) => {
+        console.log(event);
+        dispatch({
+            type: "SET_QUERY_SEARCH_PRODUCT",
+            payload: event.target.value,
+        });
+        if (event.target.value.length > 0) {
+            history.push("/product");
+        }
+    }
     const toggleOpenNavbarMobile = () => {
         setState({ ...state, navbarMobileToggle: true });
     };
@@ -78,7 +91,7 @@ function Navbar() {
                             className="border-0 me-2 px-2 w-100"
                             style={{ outline: "none" }}
                             placeholder="search"
-                        // onKeyUp={(event) => handleSearch(event)}
+                            onKeyUp={(event) => handleSearch(event)}
                         />
                         <i className="icon-search fa fa-search" />
                     </div>
@@ -100,7 +113,7 @@ function Navbar() {
                                 className="border-0 mr-2 "
                                 style={{ outline: "none" }}
                                 placeholder="search"
-                            // onKeyUp={(event) => handleSearch(event)}
+                                onKeyUp={(event) => handleSearch(event)}
                             />
                             <i className="icon-search fa fa-search" />
                         </div>

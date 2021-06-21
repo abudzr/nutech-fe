@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react"
-// import Skeleton from "react-loading-skeleton";
 // import redux
 import { useDispatch } from 'react-redux'
 import { getProduct } from "../../configs/Redux/action/product"
-import { Card, Button } from "../../components"
+import { Card } from "../../components"
 
-// import picture
-import miniDrone from "../../assets/img/mini_drone.png"
 
 // import css
 import "../../assets/css/content.css"
@@ -16,12 +13,16 @@ function Content() {
     const dispatch = useDispatch();
 
     const [state, setState] = useState(null);
-
+    const [page] = useState(1);
+    let [queryLimit] = useState("3");
+    let [queryOrder] = useState("asc");
+    let [querySort] = useState("nameProduct");
+    let [keyword] = useState("")
     useEffect(() => {
-        dispatch(getProduct()).then((res) => {
+        dispatch(getProduct(page, queryLimit, querySort, queryOrder, keyword)).then((res) => {
             setState(res.data.data.result)
         })
-    }, [dispatch]);
+    }, [dispatch, page, queryLimit, querySort, queryOrder, keyword]);
 
     return (
         <>

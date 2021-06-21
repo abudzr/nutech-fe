@@ -1,14 +1,14 @@
 import axios from 'axios'
 
 
-export const getProduct = () => {
+export const getProduct = (page, queryLimit, querySort, queryOrder, keyword) => {
     return (dispatch) => {
         return new Promise((resolve, reject) => {
             const Url = process.env.REACT_APP_API_NUTECH
-            axios.get(`${Url}/product`)
+            axios.get(`${Url}/product?page=${page}&perPage=${queryLimit}&sortBy=${querySort}&order=${queryOrder}&keyword=${keyword}`)
                 .then((res) => {
                     resolve(res)
-                    dispatch({ type: 'GET_PRODUCT', payload: res });
+                    dispatch({ type: 'GET_PRODUCT', payload: res.data.data.result });
                 })
                 .catch((err) => {
                     reject(err)

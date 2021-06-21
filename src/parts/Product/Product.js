@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import "../../assets/css/product.css"
 import { Button, Card } from "../../components"
-// import miniDrone from "../../assets/img/mini_drone.png"
 import * as Yup from 'yup';
 import { useFormik } from "formik";
 import Swal from 'sweetalert2'
-
-import { useDispatch } from 'react-redux'
+import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
+import { useDispatch, useSelector } from 'react-redux'
 import { deleteProduct, getProduct, insertProduct, updateProduct } from "../../configs/Redux/action/product"
 
 
 export default function Product() {
     const dispatch = useDispatch()
+    const { searchProduct } = useSelector((state) => state.product);
     const [clickModal, SetClickModal] = useState(false)
     const [clickModalUpdate, SetClickModalUpdate] = useState(false)
     const [idProduct, setIdProduct] = useState(null)
@@ -21,6 +21,58 @@ export default function Product() {
     const [dataImage, setDataImage] = useState({
         image: {},
     });
+
+    const [page, setPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(null);
+    const [currentPage, setCurrentPage] = useState(null);
+    let [queryLimit, setQueryLimit] = useState("3");
+    let [queryOrder, setQueryOrder] = useState("asc");
+    let [querySort, setQuerySort] = useState("nameProduct");
+    // let [keyword, setKeyword] = useState("")
+    const sort = [
+        {
+            label: "Name",
+            value: "nameProduct",
+        },
+        {
+            label: "Stock",
+            value: "stock",
+        }
+    ];
+    const order = [
+        {
+            label: "Ascending",
+            value: "ASC",
+        },
+        {
+            label: "Descending",
+            value: "DESC",
+        },
+    ];
+    const limit = [
+        {
+            label: "Limit 1",
+            value: "1",
+        },
+        {
+            label: "Limit 2",
+            value: "2",
+        },
+        {
+            label: "Limit 3",
+            value: "3",
+        },
+        {
+            label: "Limit 6",
+            value: "6",
+        },
+    ];
+
+    const handleClickPage = (index) => {
+        setPage(index + 1);
+    };
+
+
     const handleClickImage = (event) => {
         if (event.target.files.length <= 0) {
             return setError(true)
@@ -199,23 +251,27 @@ export default function Product() {
     }
 
     useEffect(() => {
-        dispatch(getProduct()).then((res) => {
+        dispatch(getProduct(page, queryLimit, querySort, queryOrder, searchProduct)).then((res) => {
             setDataProduct(res.data.data.result)
+            setTotalPage(res.data.data.totalPage)
+            setCurrentPage(res.data.data.page)
         })
-    }, [dispatch])
+    }, [dispatch, page, queryLimit, queryOrder, querySort, searchProduct])
 
     useEffect(() => {
         if (load) {
-            dispatch(getProduct())
+            dispatch(getProduct(page, queryLimit, querySort, queryOrder, searchProduct))
                 .then((res) => {
                     setDataProduct(res.data.data.result)
+                    setTotalPage(res.data.data.totalPage)
+                    setCurrentPage(res.data.data.page)
                 })
                 .then(() => setLoad(false))
                 .catch(() => {
                     setLoad(false);
                 });
         }
-    }, [load, dispatch]);
+    }, [load, dispatch, page, queryLimit, queryOrder, querySort, searchProduct]);
 
     return (
         <div className="product">
@@ -253,6 +309,87 @@ export default function Product() {
                         }
                     </div>
                 </div>
+
+                {/* Paginasi */}
+                <div className="row pl-2 pl-lg-0 mt-5">
+                    <div className="col-12 d-flex justify-content-center">
+                        {parseInt(totalPage) > 1 ? (
+                            <Pagination aria-label="Page navigation example">
+                                <PaginationItem>
+                                    <PaginationLink first onClick={(e) => setPage(1)} />
+                                </PaginationItem>
+                                {Array.from(Array(totalPage).keys()).map((data, index) => {
+                                    return (
+                                        <PaginationItem active={currentPage === index + 1}>
+                                            <PaginationLink onClick={(e) => handleClickPage(index)}>
+                                                {index + 1}
+                                            </PaginationLink>
+                                        </PaginationItem>
+                                    );
+                                })}
+                                <PaginationItem>
+                                    <PaginationLink
+                                        last
+                                        onClick={(e) => setPage(totalPage)}
+                                    />
+                                </PaginationItem>
+                            </Pagination>
+                        ) : (
+                            ""
+                        )}
+                    </div>
+                </div>
+                {/* Akhir Pagnisai */}
+                {/* awal sorting */}
+                <div className="row mt-5 ml-1 mr-1 justify-content-center">
+                    <div className="col-4">
+                        <select
+                            onChange={(event) => setQuerySort(event.target.value)}
+                            className="w-100 custom-select font-weight-normal"
+                        >
+                            {sort.map((item, index) => {
+                                return (
+                                    <option value={item.value} key={index}>
+                                        {item.label}
+                                    </option>
+                                );
+                            })}
+                        </select>
+                    </div>
+                    <div className="col-4">
+                        <select
+                            onChange={(event) => {
+                                setQueryOrder(event.target.value);
+                            }}
+                            className="w-100 custom-select"
+                        >
+                            {order.map((item, index) => {
+                                return (
+                                    <option value={item.value} key={index}>
+                                        {item.label}
+                                    </option>
+                                );
+                            })}
+                        </select>
+                    </div>
+                    <div className="col-4">
+                        <select
+                            onChange={(event) => {
+                                setQueryLimit(event.target.value);
+                            }}
+                            className="w-100 custom-select"
+                        >
+                            {limit.map((item, index) => {
+                                return (
+                                    <option value={item.value} key={index}>
+                                        {item.label}
+                                    </option>
+                                );
+                            })}
+                        </select>
+                    </div>
+                </div>
+                {/* akkhir sorting */}
                 {clickModal &&
                     <>
                         <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
