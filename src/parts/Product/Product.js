@@ -28,7 +28,7 @@ export default function Product() {
     let [queryLimit, setQueryLimit] = useState("3");
     let [queryOrder, setQueryOrder] = useState("asc");
     let [querySort, setQuerySort] = useState("nameProduct");
-    // let [keyword, setKeyword] = useState("")
+    let [keyword, setKeyword] = useState("")
     const sort = [
         {
             label: "Name",
@@ -143,7 +143,7 @@ export default function Product() {
                             confirmButtonText: "Ok",
                             confirmButtonColor: "#ffba33",
                         }).then((result) => {
-                            dispatch(getProduct(page, queryLimit, querySort, queryOrder, searchProduct))
+                            dispatch(getProduct(page, queryLimit, querySort, queryOrder, keyword))
                             setLoad(true)
                         });
                     }
@@ -209,7 +209,7 @@ export default function Product() {
                             confirmButtonText: "Ok",
                             confirmButtonColor: "#ffba33",
                         }).then((result) => {
-                            dispatch(getProduct(page, queryLimit, querySort, queryOrder, searchProduct))
+                            dispatch(getProduct(page, queryLimit, querySort, queryOrder, keyword))
                             setLoad(true)
                         });
                     }
@@ -238,7 +238,7 @@ export default function Product() {
             if (result.isConfirmed) {
                 dispatch(deleteProduct(id))
                     .then((res) => {
-                        dispatch(getProduct(page, queryLimit, querySort, queryOrder, searchProduct))
+                        dispatch(getProduct(page, queryLimit, querySort, queryOrder, keyword))
                         setLoad(true)
                         Swal.fire({
                             title: "Success!",
@@ -251,18 +251,21 @@ export default function Product() {
             }
         });
     }
+    useEffect(() => {
+        setKeyword(searchProduct)
+    }, [keyword, searchProduct])
 
     useEffect(() => {
-        dispatch(getProduct(page, queryLimit, querySort, queryOrder, searchProduct)).then((res) => {
+        dispatch(getProduct(page, queryLimit, querySort, queryOrder, keyword)).then((res) => {
             setDataProduct(res.data.data.result)
             setTotalPage(res.data.data.totalPage)
             setCurrentPage(res.data.data.page)
         })
-    }, [dispatch, page, queryLimit, queryOrder, querySort, searchProduct])
+    }, [dispatch, page, queryLimit, queryOrder, querySort, keyword])
 
     useEffect(() => {
         if (load) {
-            dispatch(getProduct(page, queryLimit, querySort, queryOrder, searchProduct))
+            dispatch(getProduct(page, queryLimit, querySort, queryOrder, keyword))
                 .then((res) => {
                     setDataProduct(res.data.data.result)
                     setTotalPage(res.data.data.totalPage)
@@ -273,7 +276,9 @@ export default function Product() {
                     setLoad(false);
                 });
         }
-    }, [load, dispatch, page, queryLimit, queryOrder, querySort, searchProduct]);
+    }, [load, dispatch, page, queryLimit, queryOrder, querySort, keyword]);
+
+
 
     return (
         <div className="product">
