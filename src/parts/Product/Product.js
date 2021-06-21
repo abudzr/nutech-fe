@@ -143,6 +143,7 @@ export default function Product() {
                             confirmButtonText: "Ok",
                             confirmButtonColor: "#ffba33",
                         }).then((result) => {
+                            dispatch(getProduct(page, queryLimit, querySort, queryOrder, searchProduct))
                             setLoad(true)
                         });
                     }
@@ -208,6 +209,7 @@ export default function Product() {
                             confirmButtonText: "Ok",
                             confirmButtonColor: "#ffba33",
                         }).then((result) => {
+                            dispatch(getProduct(page, queryLimit, querySort, queryOrder, searchProduct))
                             setLoad(true)
                         });
                     }
@@ -236,7 +238,7 @@ export default function Product() {
             if (result.isConfirmed) {
                 dispatch(deleteProduct(id))
                     .then((res) => {
-                        // dispatch(getProduct())
+                        dispatch(getProduct(page, queryLimit, querySort, queryOrder, searchProduct))
                         setLoad(true)
                         Swal.fire({
                             title: "Success!",
